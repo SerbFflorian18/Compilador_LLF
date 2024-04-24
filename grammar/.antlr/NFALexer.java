@@ -1,4 +1,4 @@
-// Generated from /home/milax/Documents/LF/Compilador_LLF/NFA.g4 by ANTLR 4.13.1
+// Generated from /home/milax/Documents/LF/Compilador_LLF/grammar/NFA.g4 by ANTLR 4.13.1
 import org.antlr.v4.runtime.Lexer;
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.Token;
