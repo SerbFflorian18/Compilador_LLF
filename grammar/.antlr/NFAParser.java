@@ -107,14 +107,6 @@ public class NFAParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_init; }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof NFAListener ) ((NFAListener)listener).enterInit(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof NFAListener ) ((NFAListener)listener).exitInit(this);
-		}
 	}
 
 	public final InitContext init() throws RecognitionException {
@@ -184,14 +176,6 @@ public class NFAParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_states; }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof NFAListener ) ((NFAListener)listener).enterStates(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof NFAListener ) ((NFAListener)listener).exitStates(this);
-		}
 	}
 
 	public final StatesContext states() throws RecognitionException {
@@ -242,14 +226,6 @@ public class NFAParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_alphabet; }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof NFAListener ) ((NFAListener)listener).enterAlphabet(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof NFAListener ) ((NFAListener)listener).exitAlphabet(this);
-		}
 	}
 
 	public final AlphabetContext alphabet() throws RecognitionException {
@@ -307,14 +283,6 @@ public class NFAParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_relations; }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof NFAListener ) ((NFAListener)listener).enterRelations(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof NFAListener ) ((NFAListener)listener).exitRelations(this);
-		}
 	}
 
 	public final RelationsContext relations() throws RecognitionException {

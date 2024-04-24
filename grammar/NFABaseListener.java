@@ -4,6 +4,8 @@ import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.tree.ErrorNode;
 import org.antlr.v4.runtime.tree.TerminalNode;
 
+import java.util.*;
+
 /**
  * This class provides an empty implementation of {@link NFAListener},
  * which can be extended to create a listener which only needs to handle a subset
@@ -11,30 +13,48 @@ import org.antlr.v4.runtime.tree.TerminalNode;
  */
 @SuppressWarnings("CheckReturnValue")
 public class NFABaseListener implements NFAListener {
+
+	List<String> states = new LinkedList<>();
+	String nfa;
+
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterInit(NFAParser.InitContext ctx) { }
+	@Override public void enterInit(NFAParser.InitContext ctx) { 
+		nfa = ctx.getText();
+	}
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitInit(NFAParser.InitContext ctx) { }
+
+	public String getNFA() {
+		return nfa;
+	}
+
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterStates(NFAParser.StatesContext ctx) { }
+	@Override public void enterStates(NFAParser.StatesContext ctx) { 
+		states.add(ctx.getText());
+	}
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitStates(NFAParser.StatesContext ctx) { }
+
+	public List<String> getStates() {
+		return states;
+	}
+
 	/**
 	 * {@inheritDoc}
 	 *
