@@ -18,10 +18,10 @@ public class NFAParser extends Parser {
 	public static final int
 		T__0=1, T__1=2, T__2=3, T__3=4, T__4=5, T__5=6, STATE=7, CHAR=8, WS=9;
 	public static final int
-		RULE_init = 0, RULE_states = 1, RULE_alphabet = 2, RULE_transition = 3;
+		RULE_init = 0, RULE_states = 1, RULE_alphabet = 2, RULE_relations = 3;
 	private static String[] makeRuleNames() {
 		return new String[] {
-			"init", "states", "alphabet", "transition"
+			"init", "states", "alphabet", "relations"
 		};
 	}
 	public static final String[] ruleNames = makeRuleNames();
@@ -99,8 +99,8 @@ public class NFAParser extends Parser {
 		public AlphabetContext alphabet() {
 			return getRuleContext(AlphabetContext.class,0);
 		}
-		public TransitionContext transition() {
-			return getRuleContext(TransitionContext.class,0);
+		public RelationsContext relations() {
+			return getRuleContext(RelationsContext.class,0);
 		}
 		public TerminalNode STATE() { return getToken(NFAParser.STATE, 0); }
 		public InitContext(ParserRuleContext parent, int invokingState) {
@@ -136,7 +136,7 @@ public class NFAParser extends Parser {
 			setState(17);
 			match(T__1);
 			setState(18);
-			transition(0);
+			relations(0);
 			setState(19);
 			match(T__2);
 			setState(20);
@@ -267,40 +267,40 @@ public class NFAParser extends Parser {
 	}
 
 	@SuppressWarnings("CheckReturnValue")
-	public static class TransitionContext extends ParserRuleContext {
+	public static class RelationsContext extends ParserRuleContext {
 		public TerminalNode STATE() { return getToken(NFAParser.STATE, 0); }
 		public TerminalNode CHAR() { return getToken(NFAParser.CHAR, 0); }
 		public StatesContext states() {
 			return getRuleContext(StatesContext.class,0);
 		}
-		public List<TransitionContext> transition() {
-			return getRuleContexts(TransitionContext.class);
+		public List<RelationsContext> relations() {
+			return getRuleContexts(RelationsContext.class);
 		}
-		public TransitionContext transition(int i) {
-			return getRuleContext(TransitionContext.class,i);
+		public RelationsContext relations(int i) {
+			return getRuleContext(RelationsContext.class,i);
 		}
-		public TransitionContext(ParserRuleContext parent, int invokingState) {
+		public RelationsContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
-		@Override public int getRuleIndex() { return RULE_transition; }
+		@Override public int getRuleIndex() { return RULE_relations; }
 	}
 
-	public final TransitionContext transition() throws RecognitionException {
-		return transition(0);
+	public final RelationsContext relations() throws RecognitionException {
+		return relations(0);
 	}
 
-	private TransitionContext transition(int _p) throws RecognitionException {
+	private RelationsContext relations(int _p) throws RecognitionException {
 		ParserRuleContext _parentctx = _ctx;
 		int _parentState = getState();
-		TransitionContext _localctx = new TransitionContext(_ctx, _parentState);
-		TransitionContext _prevctx = _localctx;
+		RelationsContext _localctx = new RelationsContext(_ctx, _parentState);
+		RelationsContext _prevctx = _localctx;
 		int _startState = 6;
-		enterRecursionRule(_localctx, 6, RULE_transition, _p);
+		enterRecursionRule(_localctx, 6, RULE_relations, _p);
 		try {
 			int _alt;
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(56);
+			setState(59);
 			_errHandler.sync(this);
 			switch ( getInterpreter().adaptivePredict(_input,2,_ctx) ) {
 			case 1:
@@ -318,32 +318,36 @@ public class NFAParser extends Parser {
 				setState(46);
 				match(T__5);
 				setState(47);
+				match(T__1);
+				setState(48);
 				states();
+				setState(49);
+				match(T__2);
 				}
 				break;
 			case 2:
 				{
-				setState(48);
-				match(T__0);
-				setState(49);
-				match(STATE);
-				setState(50);
-				match(T__3);
 				setState(51);
-				match(CHAR);
+				match(T__0);
 				setState(52);
-				match(T__4);
+				match(STATE);
 				setState(53);
-				match(T__5);
+				match(T__3);
 				setState(54);
-				match(T__1);
+				match(CHAR);
 				setState(55);
+				match(T__4);
+				setState(56);
+				match(T__5);
+				setState(57);
+				match(T__1);
+				setState(58);
 				match(T__2);
 				}
 				break;
 			}
 			_ctx.stop = _input.LT(-1);
-			setState(63);
+			setState(66);
 			_errHandler.sync(this);
 			_alt = getInterpreter().adaptivePredict(_input,3,_ctx);
 			while ( _alt!=2 && _alt!=org.antlr.v4.runtime.atn.ATN.INVALID_ALT_NUMBER ) {
@@ -352,18 +356,18 @@ public class NFAParser extends Parser {
 					_prevctx = _localctx;
 					{
 					{
-					_localctx = new TransitionContext(_parentctx, _parentState);
-					pushNewRecursionContext(_localctx, _startState, RULE_transition);
-					setState(58);
+					_localctx = new RelationsContext(_parentctx, _parentState);
+					pushNewRecursionContext(_localctx, _startState, RULE_relations);
+					setState(61);
 					if (!(precpred(_ctx, 3))) throw new FailedPredicateException(this, "precpred(_ctx, 3)");
-					setState(59);
+					setState(62);
 					match(T__3);
-					setState(60);
-					transition(4);
+					setState(63);
+					relations(4);
 					}
 					} 
 				}
-				setState(65);
+				setState(68);
 				_errHandler.sync(this);
 				_alt = getInterpreter().adaptivePredict(_input,3,_ctx);
 			}
@@ -383,11 +387,11 @@ public class NFAParser extends Parser {
 	public boolean sempred(RuleContext _localctx, int ruleIndex, int predIndex) {
 		switch (ruleIndex) {
 		case 3:
-			return transition_sempred((TransitionContext)_localctx, predIndex);
+			return relations_sempred((RelationsContext)_localctx, predIndex);
 		}
 		return true;
 	}
-	private boolean transition_sempred(TransitionContext _localctx, int predIndex) {
+	private boolean relations_sempred(RelationsContext _localctx, int predIndex) {
 		switch (predIndex) {
 		case 0:
 			return precpred(_ctx, 3);
@@ -396,7 +400,7 @@ public class NFAParser extends Parser {
 	}
 
 	public static final String _serializedATN =
-		"\u0004\u0001\tC\u0002\u0000\u0007\u0000\u0002\u0001\u0007\u0001\u0002"+
+		"\u0004\u0001\tF\u0002\u0000\u0007\u0000\u0002\u0001\u0007\u0001\u0002"+
 		"\u0002\u0007\u0002\u0002\u0003\u0007\u0003\u0001\u0000\u0001\u0000\u0001"+
 		"\u0000\u0001\u0000\u0001\u0000\u0001\u0000\u0001\u0000\u0001\u0000\u0001"+
 		"\u0000\u0001\u0000\u0001\u0000\u0001\u0000\u0001\u0000\u0001\u0000\u0001"+
@@ -405,37 +409,39 @@ public class NFAParser extends Parser {
 		"\u0002\u0001\u0002\u0001\u0002\u0001\u0002\u0003\u0002\'\b\u0002\u0001"+
 		"\u0003\u0001\u0003\u0001\u0003\u0001\u0003\u0001\u0003\u0001\u0003\u0001"+
 		"\u0003\u0001\u0003\u0001\u0003\u0001\u0003\u0001\u0003\u0001\u0003\u0001"+
-		"\u0003\u0001\u0003\u0001\u0003\u0001\u0003\u0003\u00039\b\u0003\u0001"+
-		"\u0003\u0001\u0003\u0001\u0003\u0005\u0003>\b\u0003\n\u0003\f\u0003A\t"+
-		"\u0003\u0001\u0003\u0000\u0001\u0006\u0004\u0000\u0002\u0004\u0006\u0000"+
-		"\u0000B\u0000\b\u0001\u0000\u0000\u0000\u0002 \u0001\u0000\u0000\u0000"+
-		"\u0004&\u0001\u0000\u0000\u0000\u00068\u0001\u0000\u0000\u0000\b\t\u0005"+
-		"\u0001\u0000\u0000\t\n\u0005\u0002\u0000\u0000\n\u000b\u0003\u0002\u0001"+
-		"\u0000\u000b\f\u0005\u0003\u0000\u0000\f\r\u0005\u0004\u0000\u0000\r\u000e"+
-		"\u0005\u0002\u0000\u0000\u000e\u000f\u0003\u0004\u0002\u0000\u000f\u0010"+
-		"\u0005\u0003\u0000\u0000\u0010\u0011\u0005\u0004\u0000\u0000\u0011\u0012"+
-		"\u0005\u0002\u0000\u0000\u0012\u0013\u0003\u0006\u0003\u0000\u0013\u0014"+
-		"\u0005\u0003\u0000\u0000\u0014\u0015\u0005\u0004\u0000\u0000\u0015\u0016"+
-		"\u0005\u0007\u0000\u0000\u0016\u0017\u0005\u0004\u0000\u0000\u0017\u0018"+
-		"\u0005\u0002\u0000\u0000\u0018\u0019\u0003\u0002\u0001\u0000\u0019\u001a"+
-		"\u0005\u0003\u0000\u0000\u001a\u001b\u0005\u0005\u0000\u0000\u001b\u0001"+
-		"\u0001\u0000\u0000\u0000\u001c\u001d\u0005\u0007\u0000\u0000\u001d\u001e"+
-		"\u0005\u0004\u0000\u0000\u001e!\u0003\u0002\u0001\u0000\u001f!\u0005\u0007"+
-		"\u0000\u0000 \u001c\u0001\u0000\u0000\u0000 \u001f\u0001\u0000\u0000\u0000"+
-		"!\u0003\u0001\u0000\u0000\u0000\"#\u0005\b\u0000\u0000#$\u0005\u0004\u0000"+
-		"\u0000$\'\u0003\u0004\u0002\u0000%\'\u0005\b\u0000\u0000&\"\u0001\u0000"+
-		"\u0000\u0000&%\u0001\u0000\u0000\u0000\'\u0005\u0001\u0000\u0000\u0000"+
-		"()\u0006\u0003\uffff\uffff\u0000)*\u0005\u0001\u0000\u0000*+\u0005\u0007"+
-		"\u0000\u0000+,\u0005\u0004\u0000\u0000,-\u0005\b\u0000\u0000-.\u0005\u0005"+
-		"\u0000\u0000./\u0005\u0006\u0000\u0000/9\u0003\u0002\u0001\u000001\u0005"+
-		"\u0001\u0000\u000012\u0005\u0007\u0000\u000023\u0005\u0004\u0000\u0000"+
-		"34\u0005\b\u0000\u000045\u0005\u0005\u0000\u000056\u0005\u0006\u0000\u0000"+
-		"67\u0005\u0002\u0000\u000079\u0005\u0003\u0000\u00008(\u0001\u0000\u0000"+
-		"\u000080\u0001\u0000\u0000\u00009?\u0001\u0000\u0000\u0000:;\n\u0003\u0000"+
-		"\u0000;<\u0005\u0004\u0000\u0000<>\u0003\u0006\u0003\u0004=:\u0001\u0000"+
-		"\u0000\u0000>A\u0001\u0000\u0000\u0000?=\u0001\u0000\u0000\u0000?@\u0001"+
-		"\u0000\u0000\u0000@\u0007\u0001\u0000\u0000\u0000A?\u0001\u0000\u0000"+
-		"\u0000\u0004 &8?";
+		"\u0003\u0001\u0003\u0001\u0003\u0001\u0003\u0001\u0003\u0001\u0003\u0001"+
+		"\u0003\u0003\u0003<\b\u0003\u0001\u0003\u0001\u0003\u0001\u0003\u0005"+
+		"\u0003A\b\u0003\n\u0003\f\u0003D\t\u0003\u0001\u0003\u0000\u0001\u0006"+
+		"\u0004\u0000\u0002\u0004\u0006\u0000\u0000E\u0000\b\u0001\u0000\u0000"+
+		"\u0000\u0002 \u0001\u0000\u0000\u0000\u0004&\u0001\u0000\u0000\u0000\u0006"+
+		";\u0001\u0000\u0000\u0000\b\t\u0005\u0001\u0000\u0000\t\n\u0005\u0002"+
+		"\u0000\u0000\n\u000b\u0003\u0002\u0001\u0000\u000b\f\u0005\u0003\u0000"+
+		"\u0000\f\r\u0005\u0004\u0000\u0000\r\u000e\u0005\u0002\u0000\u0000\u000e"+
+		"\u000f\u0003\u0004\u0002\u0000\u000f\u0010\u0005\u0003\u0000\u0000\u0010"+
+		"\u0011\u0005\u0004\u0000\u0000\u0011\u0012\u0005\u0002\u0000\u0000\u0012"+
+		"\u0013\u0003\u0006\u0003\u0000\u0013\u0014\u0005\u0003\u0000\u0000\u0014"+
+		"\u0015\u0005\u0004\u0000\u0000\u0015\u0016\u0005\u0007\u0000\u0000\u0016"+
+		"\u0017\u0005\u0004\u0000\u0000\u0017\u0018\u0005\u0002\u0000\u0000\u0018"+
+		"\u0019\u0003\u0002\u0001\u0000\u0019\u001a\u0005\u0003\u0000\u0000\u001a"+
+		"\u001b\u0005\u0005\u0000\u0000\u001b\u0001\u0001\u0000\u0000\u0000\u001c"+
+		"\u001d\u0005\u0007\u0000\u0000\u001d\u001e\u0005\u0004\u0000\u0000\u001e"+
+		"!\u0003\u0002\u0001\u0000\u001f!\u0005\u0007\u0000\u0000 \u001c\u0001"+
+		"\u0000\u0000\u0000 \u001f\u0001\u0000\u0000\u0000!\u0003\u0001\u0000\u0000"+
+		"\u0000\"#\u0005\b\u0000\u0000#$\u0005\u0004\u0000\u0000$\'\u0003\u0004"+
+		"\u0002\u0000%\'\u0005\b\u0000\u0000&\"\u0001\u0000\u0000\u0000&%\u0001"+
+		"\u0000\u0000\u0000\'\u0005\u0001\u0000\u0000\u0000()\u0006\u0003\uffff"+
+		"\uffff\u0000)*\u0005\u0001\u0000\u0000*+\u0005\u0007\u0000\u0000+,\u0005"+
+		"\u0004\u0000\u0000,-\u0005\b\u0000\u0000-.\u0005\u0005\u0000\u0000./\u0005"+
+		"\u0006\u0000\u0000/0\u0005\u0002\u0000\u000001\u0003\u0002\u0001\u0000"+
+		"12\u0005\u0003\u0000\u00002<\u0001\u0000\u0000\u000034\u0005\u0001\u0000"+
+		"\u000045\u0005\u0007\u0000\u000056\u0005\u0004\u0000\u000067\u0005\b\u0000"+
+		"\u000078\u0005\u0005\u0000\u000089\u0005\u0006\u0000\u00009:\u0005\u0002"+
+		"\u0000\u0000:<\u0005\u0003\u0000\u0000;(\u0001\u0000\u0000\u0000;3\u0001"+
+		"\u0000\u0000\u0000<B\u0001\u0000\u0000\u0000=>\n\u0003\u0000\u0000>?\u0005"+
+		"\u0004\u0000\u0000?A\u0003\u0006\u0003\u0004@=\u0001\u0000\u0000\u0000"+
+		"AD\u0001\u0000\u0000\u0000B@\u0001\u0000\u0000\u0000BC\u0001\u0000\u0000"+
+		"\u0000C\u0007\u0001\u0000\u0000\u0000DB\u0001\u0000\u0000\u0000\u0004"+
+		" &;B";
 	public static final ATN _ATN =
 		new ATNDeserializer().deserialize(_serializedATN.toCharArray());
 	static {
