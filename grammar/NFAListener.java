@@ -7,25 +7,26 @@ import org.antlr.v4.runtime.tree.ParseTreeListener;
  */
 public interface NFAListener extends ParseTreeListener {
 	/**
-	 * Enter a parse tree produced by {@link NFAParser#init}.
+	 * Enter a parse tree produced by {@link NFAParser#nfa}.
 	 * @param ctx the parse tree
 	 */
-	void enterInit(NFAParser.InitContext ctx);
+	void enterNfa(NFAParser.NfaContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link NFAParser#init}.
+	 * Exit a parse tree produced by {@link NFAParser#nfa}.
 	 * @param ctx the parse tree
 	 */
-	void exitInit(NFAParser.InitContext ctx);
+	void exitNfa(NFAParser.NfaContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link NFAParser#states}.
+	 * Enter a parse tree produced by {@link NFAParser#allstates}.
 	 * @param ctx the parse tree
+	 * @throws DuplicatedStateException 
 	 */
-	void enterStates(NFAParser.StatesContext ctx);
+	void enterAllstates(NFAParser.AllstatesContext ctx) ;
 	/**
-	 * Exit a parse tree produced by {@link NFAParser#states}.
+	 * Exit a parse tree produced by {@link NFAParser#allstates}.
 	 * @param ctx the parse tree
 	 */
-	void exitStates(NFAParser.StatesContext ctx);
+	void exitAllstates(NFAParser.AllstatesContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link NFAParser#alphabet}.
 	 * @param ctx the parse tree
@@ -46,4 +47,44 @@ public interface NFAListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitRelations(NFAParser.RelationsContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link NFAParser#initial}.
+	 * @param ctx the parse tree
+	 */
+	void enterInitial(NFAParser.InitialContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link NFAParser#initial}.
+	 * @param ctx the parse tree
+	 */
+	void exitInitial(NFAParser.InitialContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link NFAParser#finals}.
+	 * @param ctx the parse tree
+	 */
+	void enterFinals(NFAParser.FinalsContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link NFAParser#finals}.
+	 * @param ctx the parse tree
+	 */
+	void exitFinals(NFAParser.FinalsContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link NFAParser#states}.
+	 * @param ctx the parse tree
+	 */
+	void enterStates(NFAParser.StatesContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link NFAParser#states}.
+	 * @param ctx the parse tree
+	 */
+	void exitStates(NFAParser.StatesContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link NFAParser#relation}.
+	 * @param ctx the parse tree
+	 */
+	void enterRelation(NFAParser.RelationContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link NFAParser#relation}.
+	 * @param ctx the parse tree
+	 */
+	void exitRelation(NFAParser.RelationContext ctx);
 }

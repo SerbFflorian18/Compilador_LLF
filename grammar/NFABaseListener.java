@@ -14,71 +14,64 @@ import java.util.*;
 @SuppressWarnings("CheckReturnValue")
 public class NFABaseListener implements NFAListener {
 
+	String NFA;
 	List<String> states = new LinkedList<>();
-	String nfa;
+	List<String> alphabet = new LinkedList<>();
+	HashMap<HashMap<String, String>, Set<String>> relations = new HashMap<>();
+	String initial;
+	List<String> finals = new LinkedList<>();
 
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterInit(NFAParser.InitContext ctx) { 
-		nfa = ctx.getText();
-	}
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitInit(NFAParser.InitContext ctx) { }
+	// NFA complet
+	@Override public void enterNfa(NFAParser.NfaContext ctx) { NFA = ctx.getText(); }
+	@Override public void exitNfa(NFAParser.NfaContext ctx) { }
+	public String getNFA() { return NFA; }
 
-	public String getNFA() {
-		return nfa;
+	// Estats
+	@Override public void enterAllstates(NFAParser.AllstatesContext ctx) { 
+		for (String state: ctx.states().getText().split(",")) {
+			if (!states.contains(state)) states.add(state);
+		}
 	}
+	@Override public void exitAllstates(NFAParser.AllstatesContext ctx) { }
+	public List<String> getStates() { return states; }
 
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterStates(NFAParser.StatesContext ctx) { 
-		states.add(ctx.getText());
+	// Alfabet
+	@Override public void enterAlphabet(NFAParser.AlphabetContext ctx) {
+		String symbol = ctx.CHAR().getText();
+		if (!alphabet.contains(symbol)) alphabet.add(symbol); 
 	}
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
+	@Override public void exitAlphabet(NFAParser.AlphabetContext ctx) { }
+	public List<String> getAlphabet() { return alphabet; }
+
+	@Override public void enterRelations(NFAParser.RelationsContext ctx) { }
+	@Override public void exitRelations(NFAParser.RelationsContext ctx) { }
+
+	// Estat inicial
+	@Override public void enterInitial(NFAParser.InitialContext ctx) { initial = ctx.getText(); }
+	@Override public void exitInitial(NFAParser.InitialContext ctx) { }
+	public String getInitial() { return initial; }
+
+	// Estats finals
+	@Override public void enterFinals(NFAParser.FinalsContext ctx) { 
+		for (String state: ctx.states().getText().split(",")) {
+			if (!finals.contains(state)) finals.add(state);
+		}
+	}
+	@Override public void exitFinals(NFAParser.FinalsContext ctx) { }
+	public List<String> getFinals() { return finals; }
+
+	@Override public void enterStates(NFAParser.StatesContext ctx) { }
 	@Override public void exitStates(NFAParser.StatesContext ctx) { }
 
-	public List<String> getStates() {
-		return states;
+	// Relació
+	@Override public void enterRelation(NFAParser.RelationContext ctx) { 
+		HashMap<String, String> rel = new HashMap<>();
+		rel.put(ctx.STATE().getText(), ctx.CHAR().getText());
+		relations.put(rel, Set.of(ctx.states().getText().split(",")));
 	}
+	@Override public void exitRelation(NFAParser.RelationContext ctx) { }
+	public HashMap<HashMap<String, String>, Set<String>> getRelations() { return relations; }
 
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterAlphabet(NFAParser.AlphabetContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitAlphabet(NFAParser.AlphabetContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterRelations(NFAParser.RelationsContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitRelations(NFAParser.RelationsContext ctx) { }
 
 	/**
 	 * {@inheritDoc}

@@ -12,26 +12,36 @@
  * Requerimientos:
  *  - El nombre de los estados (STATE) tiene que tener mínimo dos carácteres para diferenciarse de los elementos (CHAR) del alfabeto
  *  - La tupla del NFA tiene que ser de la siguiente forma para ser aceptada:
- *          NFA = ({q0, q1...}, {c0, c1...), {(qi, ci) = {qi, qy...}...}, qi, {qi, qy...}
+ *          NFA = ({q0, q1...}, {c0, c1...), {(qi, ci) = {qi, qy...}...}, qi, {qi, qy...})
  */
 grammar NFA;
 
-init : '(' '{' states '}' ',' '{' alphabet '}' ',' '{' relations '}' ',' STATE ',' '{' states '}' ')';
+nfa : '(' '{' allstates '}' ',' '{' alphabet '}' ',' '{' relations '}' ',' initial ',' '{' finals '}' ')';
 
-states : STATE ',' states
-       | STATE
-       ;
+allstates : states ;
 
 alphabet : CHAR ',' alphabet
          | CHAR
          ;
 
 relations : relations ',' relations
-          | '(' STATE ',' CHAR ')' '=' '{' states '}'
-          | '(' STATE ',' CHAR ')' '=' '{' '}'
-          ; 
+          | relation
+          ;
+
+initial : STATE;
+
+finals : states;
+
+states : STATE ',' states
+       | STATE
+       ;
+
+relation : '(' STATE ',' CHAR ')' '=' '{' states '}'
+         | '(' STATE ',' CHAR ')' '=' '{' '}'
+         ;
+
 
 STATE : [a-zA-Z0-9][a-zA-Z0-9]+;
-CHAR : [a-zA-Z0-9];
+CHAR : [a-zA-Z0-9ε];
 
 WS : [ \t\r\n]+ -> skip;
