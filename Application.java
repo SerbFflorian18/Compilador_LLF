@@ -103,15 +103,23 @@ public class Application {
         latexCode.append("\\documentclass{article}\n");
         latexCode.append("\\usepackage{tikz}\n");
         latexCode.append("\\usetikzlibrary{automata, positioning, arrows}\n");
-        latexCode.append("\\DeclareUnicodeCharacter{03B5}{\\ensuremath{\\epsilon}}");
-        latexCode.append("\\tikzset{->, >=stealth, node distance=3cm, every state/.style={thick, fill=gray!20}, initial text=$ $}\n");
+        latexCode.append("\\DeclareUnicodeCharacter{03B5}{\\ensuremath{\\epsilon}}\n");
+        latexCode.append("\\definecolor{urvred}{RGB}{143,42,43}\n");
+        latexCode.append("\\tikzset{->, >=stealth, node distance=3cm, every state/.style={thick, fill=urvred!30}, initial text=$ $}\n");
         latexCode.append("\\begin{document}\n");
-        latexCode.append("\\begin{center}\n");
-        latexCode.append("\\LARGE \\textbf{" + title + "}\n");
-        latexCode.append("\\end{center}\n");
-        latexCode.append("\\begin{center}\n");
-        latexCode.append("\\small \\textit{" + NFA.replace("{", "\\{").replace("}", "\\}") + "}\n");
-        latexCode.append("\\end{center}\n");
+        latexCode.append("\\center \\LARGE \\textbf{" + title + "}\n");
+        latexCode.append("\\vspace{0.2cm}\n");
+        String NFAaux = "(" + states + ", " + alphabet + ", R, " + initial + ", " + finals + ")";
+        NFAaux = NFAaux.replace("[", "\\{").replace("]", "\\}");
+        latexCode.append("\\center \\small \\textcolor{urvred}{" + NFAaux + "}\n");
+        latexCode.append("\\center \\small Relaciones (R):\n");
+        for (HashMap.Entry<HashMap<String, String>, Set<String>> entry : relations.entrySet()) {
+            HashMap<String, String> relation = entry.getKey();
+            String destinationStates = entry.getValue().toString().replace("[", "\\{").replace("]", "\\}");
+            String originState = relation.keySet().iterator().next();
+            String symbol = relation.get(originState);
+            latexCode.append("\\center \\scriptsize \\textcolor{urvred}{(" + originState + ", " + symbol + ") = " + destinationStates + "}\n");
+        }
         latexCode.append("\\vspace{1.5cm}\n");
         latexCode.append("\\begin{figure}[h!]\n");
         latexCode.append("  \\centering\n");
@@ -121,21 +129,15 @@ public class Application {
         String ant = null;
         for (String state : states) {
             latexCode.append("      \\node[state");
-            if (initial.equals(state)) {
-                latexCode.append(",initial");
-            }
-            if (finals.contains(state)) {
-                latexCode.append(",accepting");
-            }
-            if (ant != null) {
-                latexCode.append(",right of=" + ant);
-            }
+            if (initial.equals(state)) latexCode.append(",initial");
+            if (finals.contains(state)) latexCode.append(",accepting");
+            if (ant != null) latexCode.append(",right of=" + ant);
             latexCode.append("] (" + state + ") {" + state + "};\n");
             ant = state;
         }
 
         // Agregar transiciones
-        latexCode.append("      \\draw  ");
+        latexCode.append("      \\draw");
         for (HashMap.Entry<HashMap<String, String>, Set<String>> entry : relations.entrySet()) {
             HashMap<String, String> relation = entry.getKey();
             Set<String> destinationStates = entry.getValue();
@@ -145,10 +147,10 @@ public class Application {
                 String edge = "";
                 if (originState.equals(destinationState)) edge = "loop above";
                 else edge = "bend left, above";
-                latexCode.append("             (" + originState + ") edge[" + edge + "] node{" + symbol + "} (" + destinationState + ")\n");
+                latexCode.append("\n             (" + originState + ") edge[" + edge + "] node{" + symbol + "} (" + destinationState + ")");
             }
         }
-        latexCode.append(";");
+        latexCode.append(";\n");
 
         // Finalizar documento LaTeX
         latexCode.append("  \\end{tikzpicture}\n");
