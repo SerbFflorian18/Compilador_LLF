@@ -21,14 +21,16 @@ public class Application {
 	static String initial = "";
 	static List<String> finals = new LinkedList<>();
 
+    static String title = "";
+
     static Scanner scanner = new Scanner(System.in);
 
     public static void main(String[] args) throws InterruptedException {
         System.out.println();
 
         // Input con la tupla del NFA
-        System.out.println("Introduce el NFA. Tiene que ser de la forma:");
-        System.out.println("\t({q0, q1...}, {c0, c1...), {(qi, ci) = {qi, qy...}...}, qi, {qi, qy...})");
+        System.out.println("Introduce el NFA, siguiendo el siguiente esquema:");
+        System.out.println(PURPLE + "\t({q0, q1...}, {c0, c1...), {(qi, ci) = {qi, qy...}...}, qi, {qi, qy...})" + RESET);
         String input = scanner.nextLine();
         CharStream inputStream = CharStreams.fromString(input);
         
@@ -61,14 +63,20 @@ public class Application {
 
         String latexCode = generateLatexCode();
 
-        try (FileWriter writer = new FileWriter("nfa.tex")) {
+        try (FileWriter writer = new FileWriter(title + ".tex")) {
             writer.write(latexCode);
         } catch (IOException e) {}
 
-        convertLatexToPdf("nfa.tex");
+        convertLatexToPdf(title + ".tex");
     }
 
     public static void obtenerDatosNFA(NFABaseListener listener) {
+        // Pedir nombre del NFA, que será el nombre del PDF
+        System.out.print("\nIntroduce el nombre del NFA (sin carácteres especiales): ");
+        title = scanner.nextLine();
+        if (title == null || title == "") title = "NFA";
+        else title = title.replaceAll("[^a-zA-Z0-9]", "").toUpperCase();
+
         // Guardar datos en diferentes variables
         NFA = listener.getNFA();
         states = listener.getStates();
@@ -76,9 +84,10 @@ public class Application {
         relations = listener.getRelations();
         initial = listener.getInitial();
         finals = listener.getFinals();
+
         // Imprimir datos
-        System.out.println("\nDatos del NFA:");
-        System.out.println(NFA);
+        System.out.println("Datos del NFA:");
+        System.out.println("\tNombre " + PURPLE + title + RESET);
         System.out.println("\tEstados " + PURPLE + states + RESET);
         System.out.println("\tAlfabeto " + PURPLE + alphabet + RESET);
         System.out.println("\tRelaciones " + PURPLE + relations + RESET);
@@ -96,7 +105,7 @@ public class Application {
         latexCode.append("\\tikzset{->, >=stealth, node distance=3cm, every state/.style={thick, fill=gray!20}, initial text=$ $}\n");
         latexCode.append("\\begin{document}\n");
         latexCode.append("\\begin{center}\n");
-        latexCode.append("\\LARGE \\textbf{NFA}\n");
+        latexCode.append("\\LARGE \\textbf{" + title + "}\n");
         latexCode.append("\\end{center}\n");
         latexCode.append("\\begin{center}\n");
         latexCode.append("\\small \\textit{" + NFA.replace("{", "\\{").replace("}", "\\}") + "}\n");
