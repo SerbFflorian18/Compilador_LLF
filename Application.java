@@ -31,6 +31,7 @@ public class Application {
         // Input con la tupla del NFA
         System.out.println("Introduce el NFA, siguiendo el siguiente esquema:");
         System.out.println(PURPLE + "\t({q0, q1...}, {c0, c1...), {(qi, ci) = {qi, qy...}...}, qi, {qi, qy...})" + RESET);
+        System.out.println("\tPara las transiciones nulas utiliza este simbolo: " + PURPLE + "ε" + RESET);
         String input = scanner.nextLine();
         CharStream inputStream = CharStreams.fromString(input);
         
@@ -102,6 +103,7 @@ public class Application {
         latexCode.append("\\documentclass{article}\n");
         latexCode.append("\\usepackage{tikz}\n");
         latexCode.append("\\usetikzlibrary{automata, positioning, arrows}\n");
+        latexCode.append("\\DeclareUnicodeCharacter{03B5}{\\ensuremath{\\epsilon}}");
         latexCode.append("\\tikzset{->, >=stealth, node distance=3cm, every state/.style={thick, fill=gray!20}, initial text=$ $}\n");
         latexCode.append("\\begin{document}\n");
         latexCode.append("\\begin{center}\n");
