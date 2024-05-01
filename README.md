@@ -33,17 +33,31 @@ Lenguajes usados:
 
 ## Instalación
 
-Para instalar y ejecutar el software en tu entorno local, sigue estos pasos:
+Para instalar y ejecutar el software en tu entorno local Linux, sigue estos pasos:
 
 1. Descargar y descomprimir la carpeta del proyecto
-2. Abrir con Visual Studio Code
+2. Abrir proyecto con Visual Studio Code
 3. Instalar extensión 'Extension Pack for Java'
-4. Instalar ANTLR4
+4. Instalación ANTLR4
     4.1. Instalar Java y JDK (versión 11 o superior)
     4.2. Instalar ANTLR con 'curl -O https://www.antlr.org/download/antlr-4.13.1-complete.jar'
     4.3. Guardar el .jar en /usr/local/lib (si se guarda en otro directorio hay que modificar el 'settings.json')
-5. Instalar paquetes tex
+5. Instalar paquete TeX Live (apt-get install texlive texlive-latex-extra)
+6. Ejecutar el software según las instrucciones proporcionadas en la sección de Uso
 
 ## Uso
 
-...
+1. Abrir carpeta del proyecto con Visual Studio Code
+2. Abrir Application.java
+3. Ejecutar desde el botón de la esquina superior derecha
+4. Se ejecutará el software y lo primero que pedirá es introducir una tupla NFA. Por ejemplo:
+        ({q0,q1,q2},{0,1},{(q0,0)={q0,q1},(q1,1)={q2},(q1,?)={q1}},q0,{q2})
+5. Una vez introducida, el software comprobará que forme parte del lenguaje mediante las clases generadas por la gramática
+6. Si la tupla es aceptada por la gramática, pedirá introducir un nombre que será para el PDF (si no se introduce nada, será NFA)
+7. Hecho esto, el software hará todo el proceso para generar el PDF con el diagrama y lo abrirá automáticamente
+
+## Equipo
+
+Florian Alexandru Serb Petrusel (florianalexandru.serb@estudiants.urv.cat)
+Adrià San Juan Domínguez (adria.sanjuan@estudiants.urv.cat)
+Guillem Rodríguez Mitjana (guillem.rodriguez@estudiants.urv.cat)

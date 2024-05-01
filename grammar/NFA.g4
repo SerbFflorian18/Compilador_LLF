@@ -45,6 +45,6 @@ transition : '(' STATE ',' CHAR ')' '=' '{' states '}'
 
 
 STATE : [a-zA-Z0-9][a-zA-Z0-9]+;
-CHAR : [a-zA-Z0-9ε];
+CHAR : [a-zA-Z0-9ε?];
 
 WS : [ \t\r\n]+ -> skip;

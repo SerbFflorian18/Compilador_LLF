@@ -33,8 +33,8 @@ public class Application {
         System.out.println("   1. El nombre de los estados (STATE) debe tener mínimo dos carácteres para diferenciarse de los elementos (CHAR) del alfabeto");
         System.out.println("   2. Si en las transiciones o estados inicial y finales hay algun estado no especificado en el primer conjunto de estados, la gramática \n" + //
         "      lo aceptará pero dará errores después al compilar con LaTex");
-        System.out.println("   3. Si en las transiciones se usa un carácter no especificado en el alfabeto, este se convertirá en una epsilon (ε)");
-        System.out.println("   4. Para las transiciones nulas utiliza este simbolo: " + PURPLE + "ε" + RESET);
+        System.out.println("   3. Si en las transiciones se usa un carácter no especificado en el alfabeto, este se convertirá en una epsilon");
+        System.out.println("   4. Para las transiciones nulas utiliza los simbolos " + PURPLE + "\u03B5" + RESET + " o " + PURPLE + "?" + RESET);
         System.out.print("   5. Introduce el NFA, siguiendo el siguiente esquema:");
         System.out.println(PURPLE + " ({q0, q1...}, {c0, c1...), {(qi, ci) = {qi, qy...}...}, qi, {qi, qy...})" + RESET);
         System.out.print("\nNFA: " + CYAN);
@@ -232,14 +232,7 @@ public class Application {
         Thread latexThread = new Thread(() -> {
             try {
                 // Ejecutar pdflatex para convertir el archivo .tex en .pdf
-                ProcessBuilder builder = new ProcessBuilder();
-                if (System.getProperty("os.name").toLowerCase().contains("windows")) {
-                    // Si es Windows
-                    builder.command("cmd.exe", "/c", "pdflatex", latexFile);
-                } else {
-                    // Si es Linux / Unix / MacOS
-                    builder.command("pdflatex", latexFile);
-                }
+                ProcessBuilder builder = new ProcessBuilder("pdflatex", latexFile);
                 Process process = builder.start();
     
                 // Esperar a que el proceso termine
@@ -266,21 +259,17 @@ public class Application {
             return;
         }
 
+        // Eliminar archivos auxiliares
+        deleteAuxFiles();
+
         // Abrir pdf automáticamente
         System.out.println("Abriendo PDF...\n");
         Thread.sleep(1000);
-        ProcessBuilder builder = null;
-        if (System.getProperty("os.name").toLowerCase().contains("windows")) {
-            // Si es Windows
-            builder = new ProcessBuilder("cmd.exe", "/c", "start", name + ".pdf");
-        } else {
-            // Si es Linux / Unix / MacOS
-            builder = new ProcessBuilder("xdg-open", name + ".pdf");
-        }
+        ProcessBuilder builder = new ProcessBuilder("xdg-open", name + ".pdf");
         try {
             builder.start();
         } catch (IOException e) {
-            System.out.println(RED + "Algo ha salido mal al intentar abrir el archivo PDF" + RESET);
+            System.out.println(RED + "No se ha podido abrir el archivo PDF\n" + RESET);
             return;
         }
     }
@@ -289,18 +278,11 @@ public class Application {
      * Función para eliminar los ficheros auxiliares generados por la compilación del .tex
      */
     public static void deleteAuxFiles() {
-        ProcessBuilder builder = null;
-        if (System.getProperty("os.name").toLowerCase().contains("windows")) {
-            // Si es Windows
-            builder = new ProcessBuilder("cmd.exe", "/c", "del *" + name + ".aux *" + name + ".log *" + name + ".tex");
-        } else {
-            // Si es Linux / Unix / MacOS
-            builder = new ProcessBuilder("bash", "-c", "rm *" + name + ".aux *" + name + ".log *" + name + ".tex");
-        }
+        ProcessBuilder builder = new ProcessBuilder("bash", "-c", "rm *" + name + ".aux *" + name + ".log *" + name + ".tex");
         try {
             builder.start();
         } catch (IOException e) {
-            System.out.println(RED + "Algo ha salido mal al intentar eliminar los ficheros auxiliares (.aux .log .tex)" + RESET);
+            System.out.println(RED + "Algo ha salido mal al intentar eliminar los ficheros auxiliares (.aux .log .tex)\n" + RESET);
             return;
         }
     }
