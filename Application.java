@@ -262,9 +262,33 @@ public class Application {
         if (latexThread.isAlive()) {
             System.out.println(RED + "El proceso está tardando más de lo esperado o ha habido algun error. Comprueba que no hayan relaciones con estados inexistentes u otros problemas similares\n" + RESET);
             latexThread.interrupt();
+            deleteAuxFiles();
+            return;
         }
 
-        // Eliminar ficheros auxiliares
+        // Abrir pdf automáticamente
+        System.out.println("Abriendo PDF...\n");
+        Thread.sleep(1000);
+        ProcessBuilder builder = null;
+        if (System.getProperty("os.name").toLowerCase().contains("windows")) {
+            // Si es Windows
+            builder = new ProcessBuilder("cmd.exe", "/c", "start", name + ".pdf");
+        } else {
+            // Si es Linux / Unix / MacOS
+            builder = new ProcessBuilder("xdg-open", name + ".pdf");
+        }
+        try {
+            builder.start();
+        } catch (IOException e) {
+            System.out.println(RED + "Algo ha salido mal al intentar abrir el archivo PDF" + RESET);
+            return;
+        }
+    }
+
+    /**
+     * Función para eliminar los ficheros auxiliares generados por la compilación del .tex
+     */
+    public static void deleteAuxFiles() {
         ProcessBuilder builder = null;
         if (System.getProperty("os.name").toLowerCase().contains("windows")) {
             // Si es Windows
@@ -277,23 +301,7 @@ public class Application {
             builder.start();
         } catch (IOException e) {
             System.out.println(RED + "Algo ha salido mal al intentar eliminar los ficheros auxiliares (.aux .log .tex)" + RESET);
-        }
-
-        // Abrir pdf automáticamente
-        System.out.println("Abriendo PDF...");
-        Thread.sleep(1000);
-        builder = null;
-        if (System.getProperty("os.name").toLowerCase().contains("windows")) {
-            // Si es Windows
-            builder = new ProcessBuilder("cmd.exe", "/c", "start", name + ".pdf");
-        } else {
-            // Si es Linux / Unix / MacOS
-            builder = new ProcessBuilder("xdg-open", name + ".pdf");
-        }
-        try {
-            builder.start();
-        } catch (IOException e) {
-            System.out.println(RED + "Algo ha salido mal al intentar abrir el archivo PDF" + RESET);
+            return;
         }
     }
 
