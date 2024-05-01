@@ -19,9 +19,8 @@ public interface NFAListener extends ParseTreeListener {
 	/**
 	 * Enter a parse tree produced by {@link NFAParser#allstates}.
 	 * @param ctx the parse tree
-	 * @throws DuplicatedStateException 
 	 */
-	void enterAllstates(NFAParser.AllstatesContext ctx) ;
+	void enterAllstates(NFAParser.AllstatesContext ctx);
 	/**
 	 * Exit a parse tree produced by {@link NFAParser#allstates}.
 	 * @param ctx the parse tree
@@ -38,15 +37,15 @@ public interface NFAListener extends ParseTreeListener {
 	 */
 	void exitAlphabet(NFAParser.AlphabetContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link NFAParser#relations}.
+	 * Enter a parse tree produced by {@link NFAParser#transitions}.
 	 * @param ctx the parse tree
 	 */
-	void enterRelations(NFAParser.RelationsContext ctx);
+	void enterTransitions(NFAParser.TransitionsContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link NFAParser#relations}.
+	 * Exit a parse tree produced by {@link NFAParser#transitions}.
 	 * @param ctx the parse tree
 	 */
-	void exitRelations(NFAParser.RelationsContext ctx);
+	void exitTransitions(NFAParser.TransitionsContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link NFAParser#initial}.
 	 * @param ctx the parse tree
@@ -78,13 +77,13 @@ public interface NFAListener extends ParseTreeListener {
 	 */
 	void exitStates(NFAParser.StatesContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link NFAParser#relation}.
+	 * Enter a parse tree produced by {@link NFAParser#transition}.
 	 * @param ctx the parse tree
 	 */
-	void enterRelation(NFAParser.RelationContext ctx);
+	void enterTransition(NFAParser.TransitionContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link NFAParser#relation}.
+	 * Exit a parse tree produced by {@link NFAParser#transition}.
 	 * @param ctx the parse tree
 	 */
-	void exitRelation(NFAParser.RelationContext ctx);
+	void exitTransition(NFAParser.TransitionContext ctx);
 }

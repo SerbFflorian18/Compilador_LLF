@@ -26,11 +26,11 @@ rule names:
 nfa
 allstates
 alphabet
-relations
+transitions
 initial
 finals
 states
-relation
+transition
 
 
 atn:

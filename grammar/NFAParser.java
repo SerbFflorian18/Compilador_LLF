@@ -18,12 +18,12 @@ public class NFAParser extends Parser {
 	public static final int
 		T__0=1, T__1=2, T__2=3, T__3=4, T__4=5, T__5=6, STATE=7, CHAR=8, WS=9;
 	public static final int
-		RULE_nfa = 0, RULE_allstates = 1, RULE_alphabet = 2, RULE_relations = 3, 
-		RULE_initial = 4, RULE_finals = 5, RULE_states = 6, RULE_relation = 7;
+		RULE_nfa = 0, RULE_allstates = 1, RULE_alphabet = 2, RULE_transitions = 3, 
+		RULE_initial = 4, RULE_finals = 5, RULE_states = 6, RULE_transition = 7;
 	private static String[] makeRuleNames() {
 		return new String[] {
-			"nfa", "allstates", "alphabet", "relations", "initial", "finals", "states", 
-			"relation"
+			"nfa", "allstates", "alphabet", "transitions", "initial", "finals", "states", 
+			"transition"
 		};
 	}
 	public static final String[] ruleNames = makeRuleNames();
@@ -98,8 +98,8 @@ public class NFAParser extends Parser {
 		public AlphabetContext alphabet() {
 			return getRuleContext(AlphabetContext.class,0);
 		}
-		public RelationsContext relations() {
-			return getRuleContext(RelationsContext.class,0);
+		public TransitionsContext transitions() {
+			return getRuleContext(TransitionsContext.class,0);
 		}
 		public InitialContext initial() {
 			return getRuleContext(InitialContext.class,0);
@@ -148,7 +148,7 @@ public class NFAParser extends Parser {
 			setState(25);
 			match(T__1);
 			setState(26);
-			relations(0);
+			transitions(0);
 			setState(27);
 			match(T__2);
 			setState(28);
@@ -277,48 +277,48 @@ public class NFAParser extends Parser {
 	}
 
 	@SuppressWarnings("CheckReturnValue")
-	public static class RelationsContext extends ParserRuleContext {
-		public RelationContext relation() {
-			return getRuleContext(RelationContext.class,0);
+	public static class TransitionsContext extends ParserRuleContext {
+		public TransitionContext transition() {
+			return getRuleContext(TransitionContext.class,0);
 		}
-		public List<RelationsContext> relations() {
-			return getRuleContexts(RelationsContext.class);
+		public List<TransitionsContext> transitions() {
+			return getRuleContexts(TransitionsContext.class);
 		}
-		public RelationsContext relations(int i) {
-			return getRuleContext(RelationsContext.class,i);
+		public TransitionsContext transitions(int i) {
+			return getRuleContext(TransitionsContext.class,i);
 		}
-		public RelationsContext(ParserRuleContext parent, int invokingState) {
+		public TransitionsContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
-		@Override public int getRuleIndex() { return RULE_relations; }
+		@Override public int getRuleIndex() { return RULE_transitions; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof NFAListener ) ((NFAListener)listener).enterRelations(this);
+			if ( listener instanceof NFAListener ) ((NFAListener)listener).enterTransitions(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof NFAListener ) ((NFAListener)listener).exitRelations(this);
+			if ( listener instanceof NFAListener ) ((NFAListener)listener).exitTransitions(this);
 		}
 	}
 
-	public final RelationsContext relations() throws RecognitionException {
-		return relations(0);
+	public final TransitionsContext transitions() throws RecognitionException {
+		return transitions(0);
 	}
 
-	private RelationsContext relations(int _p) throws RecognitionException {
+	private TransitionsContext transitions(int _p) throws RecognitionException {
 		ParserRuleContext _parentctx = _ctx;
 		int _parentState = getState();
-		RelationsContext _localctx = new RelationsContext(_ctx, _parentState);
-		RelationsContext _prevctx = _localctx;
+		TransitionsContext _localctx = new TransitionsContext(_ctx, _parentState);
+		TransitionsContext _prevctx = _localctx;
 		int _startState = 6;
-		enterRecursionRule(_localctx, 6, RULE_relations, _p);
+		enterRecursionRule(_localctx, 6, RULE_transitions, _p);
 		try {
 			int _alt;
 			enterOuterAlt(_localctx, 1);
 			{
 			{
 			setState(45);
-			relation();
+			transition();
 			}
 			_ctx.stop = _input.LT(-1);
 			setState(52);
@@ -330,14 +330,14 @@ public class NFAParser extends Parser {
 					_prevctx = _localctx;
 					{
 					{
-					_localctx = new RelationsContext(_parentctx, _parentState);
-					pushNewRecursionContext(_localctx, _startState, RULE_relations);
+					_localctx = new TransitionsContext(_parentctx, _parentState);
+					pushNewRecursionContext(_localctx, _startState, RULE_transitions);
 					setState(47);
 					if (!(precpred(_ctx, 2))) throw new FailedPredicateException(this, "precpred(_ctx, 2)");
 					setState(48);
 					match(T__3);
 					setState(49);
-					relations(3);
+					transitions(3);
 					}
 					} 
 				}
@@ -495,29 +495,29 @@ public class NFAParser extends Parser {
 	}
 
 	@SuppressWarnings("CheckReturnValue")
-	public static class RelationContext extends ParserRuleContext {
+	public static class TransitionContext extends ParserRuleContext {
 		public TerminalNode STATE() { return getToken(NFAParser.STATE, 0); }
 		public TerminalNode CHAR() { return getToken(NFAParser.CHAR, 0); }
 		public StatesContext states() {
 			return getRuleContext(StatesContext.class,0);
 		}
-		public RelationContext(ParserRuleContext parent, int invokingState) {
+		public TransitionContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
-		@Override public int getRuleIndex() { return RULE_relation; }
+		@Override public int getRuleIndex() { return RULE_transition; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof NFAListener ) ((NFAListener)listener).enterRelation(this);
+			if ( listener instanceof NFAListener ) ((NFAListener)listener).enterTransition(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof NFAListener ) ((NFAListener)listener).exitRelation(this);
+			if ( listener instanceof NFAListener ) ((NFAListener)listener).exitTransition(this);
 		}
 	}
 
-	public final RelationContext relation() throws RecognitionException {
-		RelationContext _localctx = new RelationContext(_ctx, getState());
-		enterRule(_localctx, 14, RULE_relation);
+	public final TransitionContext transition() throws RecognitionException {
+		TransitionContext _localctx = new TransitionContext(_ctx, getState());
+		enterRule(_localctx, 14, RULE_transition);
 		try {
 			setState(83);
 			_errHandler.sync(this);
@@ -582,11 +582,11 @@ public class NFAParser extends Parser {
 	public boolean sempred(RuleContext _localctx, int ruleIndex, int predIndex) {
 		switch (ruleIndex) {
 		case 3:
-			return relations_sempred((RelationsContext)_localctx, predIndex);
+			return transitions_sempred((TransitionsContext)_localctx, predIndex);
 		}
 		return true;
 	}
-	private boolean relations_sempred(RelationsContext _localctx, int predIndex) {
+	private boolean transitions_sempred(TransitionsContext _localctx, int predIndex) {
 		switch (predIndex) {
 		case 0:
 			return precpred(_ctx, 2);

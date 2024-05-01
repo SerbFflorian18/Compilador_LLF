@@ -14,19 +14,20 @@ import java.util.*;
 @SuppressWarnings("CheckReturnValue")
 public class NFABaseListener implements NFAListener {
 
-	String NFA;
-	List<String> states = new LinkedList<>();
-	List<String> alphabet = new LinkedList<>();
-	HashMap<HashMap<String, String>, Set<String>> relations = new HashMap<>();
-	String initial;
-	List<String> finals = new LinkedList<>();
+	// Datos del NFA
+	String NFA;																			// Tupla entera del NFA
+	List<String> states = new LinkedList<>();											// Lista con los estados
+	List<String> alphabet = new LinkedList<>();											// Lista con los carácteres del alfabeto
+	HashMap<HashMap<String, String>, HashSet<String>> relations = new HashMap<>();		// Hashmap con las transiciones
+	String initial;																		// Estado inicial
+	List<String> finals = new LinkedList<>();											// Lista con los estados finales
 
-	// NFA complet
-	@Override public void enterNfa(NFAParser.NfaContext ctx) { NFA = ctx.getText(); }
+	// NFA completo
+	@Override public void enterNfa(NFAParser.NfaContext ctx) { alphabet.add("ε"); NFA = ctx.getText(); }
 	@Override public void exitNfa(NFAParser.NfaContext ctx) { }
 	public String getNFA() { return NFA; }
 
-	// Estats
+	// Estados del primer elemento de la tupla
 	@Override public void enterAllstates(NFAParser.AllstatesContext ctx) { 
 		for (String state: ctx.states().getText().split(",")) {
 			if (!states.contains(state)) states.add(state);
@@ -35,7 +36,7 @@ public class NFABaseListener implements NFAListener {
 	@Override public void exitAllstates(NFAParser.AllstatesContext ctx) { }
 	public List<String> getStates() { return states; }
 
-	// Alfabet
+	// Alfabeto
 	@Override public void enterAlphabet(NFAParser.AlphabetContext ctx) {
 		String symbol = ctx.CHAR().getText();
 		if (!alphabet.contains(symbol)) alphabet.add(symbol); 
@@ -43,15 +44,16 @@ public class NFABaseListener implements NFAListener {
 	@Override public void exitAlphabet(NFAParser.AlphabetContext ctx) { }
 	public List<String> getAlphabet() { return alphabet; }
 
-	@Override public void enterRelations(NFAParser.RelationsContext ctx) { }
-	@Override public void exitRelations(NFAParser.RelationsContext ctx) { }
+	// Transiciones
+	@Override public void enterTransitions(NFAParser.TransitionsContext ctx) { }
+	@Override public void exitTransitions(NFAParser.TransitionsContext ctx) { }
 
-	// Estat inicial
+	// Estado inicial
 	@Override public void enterInitial(NFAParser.InitialContext ctx) { initial = ctx.getText(); }
 	@Override public void exitInitial(NFAParser.InitialContext ctx) { }
 	public String getInitial() { return initial; }
 
-	// Estats finals
+	// Estados finales
 	@Override public void enterFinals(NFAParser.FinalsContext ctx) { 
 		for (String state: ctx.states().getText().split(",")) {
 			if (!finals.contains(state)) finals.add(state);
@@ -60,17 +62,27 @@ public class NFABaseListener implements NFAListener {
 	@Override public void exitFinals(NFAParser.FinalsContext ctx) { }
 	public List<String> getFinals() { return finals; }
 
+	// Estados de toda la tupla
 	@Override public void enterStates(NFAParser.StatesContext ctx) { }
 	@Override public void exitStates(NFAParser.StatesContext ctx) { }
 
-	// Relació
-	@Override public void enterRelation(NFAParser.RelationContext ctx) { 
+	// Transición
+	@Override public void enterTransition(NFAParser.TransitionContext ctx) { 
+		// Inicializar clave Hashmap
 		HashMap<String, String> rel = new HashMap<>();
-		rel.put(ctx.STATE().getText(), ctx.CHAR().getText());
-		relations.put(rel, Set.of(ctx.states().getText().split(",")));
+		// Guardar símbolo (si no pertenece al alfabeto pasa a ser epsilon)
+		String symbol = alphabet.contains(ctx.CHAR().getText()) ? ctx.CHAR().getText() : "ε";
+		// Guardar clave como un Hashmap del estado inicial y del símbolo
+		rel.put(ctx.STATE().getText(), symbol);
+		// Guardar conjunto de estados finales
+		HashSet<String> states = new HashSet<>();
+		for (String state: ctx.states().getText().split(",")) states.add(state);
+		// Si ya existía una transición con esta clave, añadir al conjunto anterior los que ya estaban en el Hashmap
+		if (relations.containsKey(rel)) states.addAll(relations.get(rel));
+		relations.put(rel, states);
 	}
-	@Override public void exitRelation(NFAParser.RelationContext ctx) { }
-	public HashMap<HashMap<String, String>, Set<String>> getRelations() { return relations; }
+	@Override public void exitTransition(NFAParser.TransitionContext ctx) { }
+	public HashMap<HashMap<String, String>, HashSet<String>> getTransitions() { return relations; }
 
 
 	/**
